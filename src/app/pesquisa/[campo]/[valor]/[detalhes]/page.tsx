@@ -13,14 +13,15 @@ interface Imovel {
   uf: string;
   cidade: string;
   bairro: string;
-  endereço: string;
-  preço: number;
-  avaliação: number;
+  endereco: string;
+  preco: number;
+  avaliacao: number;
   desconto: number;
-  descrição: string;
+  descricao: string;
   modalidade: string;
   link: string;
 }
+
 
 export default function Page() {
   const [resultados, setResultados] = useState<Imovel[]>([]);
@@ -50,7 +51,7 @@ export default function Page() {
         const { data, error } = await supabase
           .from("imoveis")
           .select(
-            "id, numero, uf, cidade, bairro, endereço, preço, avaliação, desconto, descrição, modalidade, link"
+            "id, numero, uf, cidade, bairro, endereco, preco, avaliacao, desconto, descricao, modalidade, link"
           )
           .eq("id", id); // Usa o id para buscar o imóvel específico
 
@@ -130,7 +131,7 @@ export default function Page() {
               <tr>
                 <th>Endereço</th>
                 {resultados.map((item, index) => (
-                  <td key={index}>{item.endereço}</td>
+                  <td key={index}>{item.endereco}</td>
                 ))}
               </tr>
               <tr>
@@ -142,13 +143,13 @@ export default function Page() {
               <tr>
                 <th>Valor do Imóvel</th>
                 {resultados.map((item, index) => (
-                  <td key={index}>R$ {formatarPreco(item.preço)}</td>
+                  <td key={index}>R$ {formatarPreco(item.preco)}</td>
                 ))}
               </tr>
               <tr>
                 <th>Valor de Avaliação</th>
                 {resultados.map((item, index) => (
-                  <td key={index}>R$ {formatarPreco(item.avaliação)}</td>
+                  <td key={index}>R$ {formatarPreco(item.avaliacao)}</td>
                 ))}
               </tr>
               <tr>
@@ -160,7 +161,7 @@ export default function Page() {
               <tr>
                 <th>Descrição</th>
                 {resultados.map((item, index) => (
-                  <td key={index}>{item.descrição}</td>
+                  <td key={index}>{item.descricao}</td>
                 ))}
               </tr>
               <tr>
@@ -205,7 +206,7 @@ export default function Page() {
               <tr>
                 <th>Google Maps</th>
                 {resultados.map((item, index) => {
-                  const enderecoCompleto = `${item.endereço}, ${item.bairro}, ${item.cidade}, ${item.uf}`;
+                  const enderecoCompleto = `${item.endereco}, ${item.bairro}, ${item.cidade}, ${item.uf}`;
                   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                     enderecoCompleto
                   )}`;

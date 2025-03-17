@@ -40,7 +40,7 @@ export default function Page() {
       const { data, error } = await supabase
         .from("imoveis")
         .select(
-          "numero, uf, cidade, bairro, endereço, preço, avaliação, desconto, descrição, modalidade, link"
+          "id, numero, uf, cidade, bairro, endereco, preco, avaliacao, desconto, descricao, modalidade, link"
         )
         .ilike(campo, `%${valorLimpo}%`);
 
