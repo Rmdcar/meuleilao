@@ -118,7 +118,7 @@ export default function Page() {
                   )
                 )
                 .map((item, index) => {
-                  const enderecoCompleto = `${item.endereço}, ${item.bairro}, ${item.cidade}`;
+                  const enderecoCompleto = `${item.endereco}, ${item.bairro}, ${item.cidade}`;
                   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                     enderecoCompleto
                   )}`;
@@ -126,11 +126,11 @@ export default function Page() {
                   return (
                     <tr key={index}>
                       <td>{item.bairro}</td>
-                      <td>{item.endereço}</td>
+                      <td>{item.endereco}</td>
 
                       <td className={styles.editCollum}>
                         R${" "}
-                        {Number(item.preço).toLocaleString("pt-BR", {
+                        {Number(item.preco).toLocaleString("pt-BR", {
                           style: "decimal",
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
@@ -138,7 +138,7 @@ export default function Page() {
                       </td>
                       <td className={styles.editCollum}>
                         R${" "}
-                        {Number(item.avaliação).toLocaleString("pt-BR", {
+                        {Number(item.avaliacao).toLocaleString("pt-BR", {
                           style: "decimal",
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
