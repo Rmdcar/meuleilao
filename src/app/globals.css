@@ -1,42 +1,168 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* globals.css */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* Reset básico */
 * {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Estilos globais */
+html, body {
+  height: 100%;
+  font-family: var(--font-geist-sans), sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para a navegação */
+.initialNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1164aa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.initialNav .section1, .initialNav .section2 {
+  display: flex;
+  gap: 1rem;
+}
+
+.initialNav a {
+  text-decoration: none;
+  color: #f4f4f9;
+  font-weight: 500;
+  font-size: 4vh;
+  transition: color 0.3s ease;
+}
+
+.initialNav a:hover {
+  color: #abcbeb;
+}
+
+/* Estilos para o menu sanduíche */
+.menuToggle {
+  display: none; /* Esconde o checkbox */
+}
+
+.menuIcon {
+  display: none; /* Esconde o ícone do menu em telas maiores */
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menuIcon span {
+  width: 25px;
+  height: 3px;
+  background-color: #f4f4f9;
+  margin: 4px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Estilos para o conteúdo principal */
+main {
+  margin-top: 2rem;
+}
+
+/* Estilos para a tipografia */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-geist-mono), monospace;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #0070f3;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Estilos para links */
 a {
-  color: inherit;
+  color: #0070f3;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para botões */
+button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005bb5;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .initialNav {
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    z-index: 10;
+  }
+
+  .initialNav .section1 {
+    flex: 1;
+    text-align: center; /* Centraliza o texto em dispositivos móveis */
+  }
+
+  .initialNav .section2 {
+    display: none; /* Esconde o menu em dispositivos móveis */
+    flex-direction: column;
+    gap: 0.5rem;
+    position: absolute;
+    top: 60px; /* Ajuste conforme a altura da navbar */
+    right: 0;
+    background-color: #1164aa;
+    width: 100%;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .menuIcon {
+    display: flex; /* Mostra o ícone do menu em dispositivos móveis */
+  }
+
+  /* Mostra o menu quando o checkbox está marcado */
+  .menuToggle:checked ~ .section2 {
+    display: flex;
+  }
+
+  /* Anima o ícone do menu */
+  .menuToggle:checked ~ .menuIcon span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .menuToggle:checked ~ .menuIcon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menuToggle:checked ~ .menuIcon span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 }

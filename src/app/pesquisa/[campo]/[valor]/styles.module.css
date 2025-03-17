@@ -1,0 +1,125 @@
+/* styles.module.css */
+
+/* Estilos gerais para o contêiner de resultados */
+.resultados {
+    width: 100%;
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilos para a tabela */
+  .resultadosTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  /* Estilos para o cabeçalho da tabela */
+  .resultadosTable thead th {
+    background-color: #1164aa;
+    color: #ffffff;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  /* Estilos para os inputs de filtro no cabeçalho */
+  .resultadosTable thead th input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+  }
+  
+  .resultadosTable thead th input:focus {
+    border-color: #1164aa;
+    outline: none;
+  }
+  
+  /* Estilos para as células da tabela */
+  .resultadosTable tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  /* Estilos para as linhas da tabela */
+  .resultadosTable tbody tr:hover {
+    background-color: #f4f4f9;
+  }
+  
+  /* Estilos para a coluna editada (preço, avaliação, desconto) */
+  .editCollum {
+    font-weight: bold;
+    color: #1164aa;
+    text-align: center; /* Alinha o texto ao centro horizontalmente */
+  }
+  
+  /* Estilos para os links na tabela */
+  .resultadosTable td a {
+    margin-left: 0.5rem;
+    color: #1164aa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .resultadosTable td a:hover {
+    color: #0d4a7a;
+  }
+  
+  /* Estilos para o botão "Voltar" */
+  .buttonDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  
+  .buttonDiv button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #1164aa;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buttonDiv button:hover {
+    background-color: #0d4a7a;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .resultados {
+      padding: 0.5rem;
+    }
+  
+    .resultadosTable thead th {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+  
+    .resultadosTable tbody td {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+    }
+  
+    .buttonDiv button {
+      width: 100%;
+      padding: 0.75rem;
+    }
+  }

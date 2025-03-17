@@ -1,0 +1,131 @@
+/* styles.module.css */
+
+/* Estilos gerais para o contêiner de resultados */
+.results {
+    width: 100%;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Estilos para o título */
+  .title {
+    font-size: 2rem;
+    color: #1164aa;
+    margin-bottom: 1rem;
+  }
+  
+  /* Estilos para a tabela */
+  .table-results {
+    width: 100%;
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table-results table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Estilos para o cabeçalho da tabela */
+  .table-results th {
+    background-color: #1164aa;
+    color: #ffffff;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  /* Estilos para as células da tabela */
+  .table-results td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  /* Estilos para as linhas da tabela */
+  .table-results tr:hover {
+    background-color: #f4f4f9;
+  }
+  
+  /* Estilos para os links na tabela */
+  .table-results td a {
+    color: #1164aa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .table-results td a:hover {
+    color: #0d4a7a;
+  }
+  
+  /* Estilos para a imagem */
+  .image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+    margin: 2rem auto; /* Centraliza a imagem horizontalmente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: block; 
+  }
+  
+  /* Estilos para o botão "Voltar" */
+  .buttonDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .buttonDiv button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #1164aa;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buttonDiv button:hover {
+    background-color: #0d4a7a;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .results {
+      padding: 0.5rem;
+    }
+  
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .table-results {
+      padding: 0.5rem;
+    }
+  
+    .table-results th,
+    .table-results td {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+    }
+  
+    .buttonDiv button {
+      width: 100%;
+      padding: 0.75rem;
+    }
+  }
