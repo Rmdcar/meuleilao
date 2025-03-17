@@ -4,34 +4,34 @@ import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css"; // Importando o CSS
 
 export default function Page() {
-  const [paymentOption, setPaymentOption] = useState("à vista");
-  const [auctionValue, setAuctionValue] = useState(0);
-  const [saleValue, setSaleValue] = useState(0);
-  const [brokerCommission, setBrokerCommission] = useState(5);
-  const [itbi, setItbi] = useState(1.5);
-  const [registration, setRegistration] = useState(0);
-  const [lawyerFee, setLawyerFee] = useState(0);
-  const [reform, setReform] = useState(0);
-  const [otherCosts, setOtherCosts] = useState(0);
-  const [salePeriod, setSalePeriod] = useState(0);
-  const [iptu, setIptu] = useState(0);
-  const [condominium, setCondominium] = useState(0);
-  const [realEstateCommission, setRealEstateCommission] = useState(5);
-  const [realEstateCommissionValue, setRealEstateCommissionValue] = useState(0);
-  const [capitalGainsTax, setCapitalGainsTax] = useState(15);
-  const [totalCosts, setTotalCosts] = useState(0);
+  const [paymentOption, setPaymentOption] = useState<string>("à vista");
+  const [auctionValue, setAuctionValue] = useState<number>(0);
+  const [saleValue, setSaleValue] = useState<number>(0);
+  const [brokerCommission, setBrokerCommission] = useState<number>(5);
+  const [itbi, setItbi] = useState<number>(1.5);
+  const [registration, setRegistration] = useState<number>(0);
+  const [lawyerFee, setLawyerFee] = useState<number>(0);
+  const [reform, setReform] = useState<number>(0);
+  const [otherCosts, setOtherCosts] = useState<number>(0);
+  const [salePeriod, setSalePeriod] = useState<number>(0);
+  const [iptu, setIptu] = useState<number>(0);
+  const [condominium, setCondominium] = useState<number>(0);
+  const [realEstateCommission, setRealEstateCommission] = useState<number>(5);
+  const [realEstateCommissionValue, setRealEstateCommissionValue] = useState<number>(0);
+  const [capitalGainsTax, setCapitalGainsTax] = useState<number>(15);
+  const [totalCosts, setTotalCosts] = useState<number>(0);
 
-  const handlePaymentChange = (event) => {
+  const handlePaymentChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     setPaymentOption(event.target.value);
   };
 
   // Função para garantir que valores inválidos sejam tratados como 0
-  const safeValue = (value) => {
+  const safeValue = (value: any): number => {
     return isNaN(value) || value === undefined ? 0 : parseFloat(value);
   };
 
   // Função para calcular os custos totais
-  const calculateTotalCosts = () => {
+  const calculateTotalCosts = (): number => {
     const brokerCommissionValue = (brokerCommission / 100) * auctionValue;
     const itbiValue = (itbi / 100) * auctionValue;
     const total =
@@ -49,7 +49,7 @@ export default function Page() {
   };
 
   // Função para calcular o ganho de capital
-  const calculateCapitalGains = () => {
+  const calculateCapitalGains = (): number => {
     const realEstateCommissionValue = (realEstateCommission / 100) * saleValue;
     const capitalGains =
       safeValue(saleValue) -
@@ -63,7 +63,7 @@ export default function Page() {
   };
 
   // Função para calcular o lucro líquido
-  const calculateNetProfit = () => {
+  const calculateNetProfit = (): number => {
     const realEstateCommissionValue = (realEstateCommission / 100) * saleValue;
     const capitalGainsTaxValue =
       (capitalGainsTax / 100) * calculateCapitalGains();
@@ -74,13 +74,13 @@ export default function Page() {
   };
 
   // Função para calcular o lucro mensal
-  const calculateMonthlyProfit = () => {
+  const calculateMonthlyProfit = (): number => {
     const netProfit = calculateNetProfit();
-    return salePeriod > 0 ? (netProfit / salePeriod).toFixed(2) : 0;
+    return salePeriod > 0 ? parseFloat((netProfit / salePeriod).toFixed(2)) : 0;
   };
 
   // Função para formatar valores em moeda
-  const formatCurrency = (value) => {
+  const formatCurrency = (value: number): string => {
     return value.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
@@ -88,7 +88,7 @@ export default function Page() {
   };
 
   // Função para limpar os campos
-  const handleClear = () => {
+  const handleClear = (): void => {
     setAuctionValue(0);
     setSaleValue(0);
     setBrokerCommission(5);
@@ -375,7 +375,7 @@ export default function Page() {
         </p>
         <p className={styles.monthlyProfit}>
           Equivale a lucro mensal de:{" "}
-          {formatCurrency(parseFloat(calculateMonthlyProfit()))}
+          {formatCurrency(calculateMonthlyProfit())}
         </p>
       </div>
 
