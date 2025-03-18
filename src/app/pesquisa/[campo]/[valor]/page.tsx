@@ -68,6 +68,14 @@ export default function Page() {
           <table>
             <thead>
               <tr>
+              <th>
+                  Cidade{" "}
+                  <input
+                    type="text"
+                    onChange={(e) => setFiltro(e.target.value)}
+                    placeholder="Filtrar"
+                  />
+                </th>
                 <th>
                   Bairro{" "}
                   <input
@@ -125,6 +133,7 @@ export default function Page() {
 
                   return (
                     <tr key={index}>
+                      <td>{item.cidade}</td>
                       <td>{item.bairro}</td>
                       <td>{item.endereco}</td>
 

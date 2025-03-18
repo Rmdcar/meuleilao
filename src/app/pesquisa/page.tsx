@@ -10,18 +10,33 @@ export default function Page() {
   const [valor, setValor] = useState("");
   const [campo, setCampo] = useState("");
   const [resultados, setResultados] = useState<any[]>([]);
+  const [estados, setEstados] = useState<string[]>([]);
+  const [ufSelecionada, setUfSelecionada] = useState("");
   const router = useRouter();
+
+  // Estados do Brasil em formato abreviado
+  const estadosBrasil = [
+    "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", 
+    "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
+  ];
+
+  useEffect(() => {
+    if (campo === "uf") {
+      setEstados(estadosBrasil); // Carrega os estados do Brasil
+    }
+  }, [campo]);
 
   const clearForm = () => {
     setValor("");
     setCampo("");
     setResultados([]);
+    setUfSelecionada("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!campo || !valor) {
+    if (!campo || (!valor && campo !== "uf")) {
       FlickerAlerts.showAlert({
         type: "warning",
         title: "Atenção!",
@@ -33,9 +48,8 @@ export default function Page() {
     }
 
     try {
-      // Remove caracteres não numéricos se o campo for "cadastro"
       const valorLimpo =
-        campo === "cadastro" ? valor.replace(/\D/g, "") : valor;
+        campo === "cadastro" ? valor.replace(/\D/g, "") : campo === "uf" ? ufSelecionada : valor;
 
       const { data, error } = await supabase
         .from("imoveis")
@@ -87,19 +101,39 @@ export default function Page() {
                 <option value=""> Selecione</option>
                 <option value="uf">UF</option>
                 <option value="cidade">Cidade</option>
-                <option value="bairro">Bairro</option>
               </select>
             </div>
-            <div>
-              <input
-                className={styles.inputSearch}
-                type="text"
-                placeholder="Digite o valor"
-                onChange={(e) => setValor(e.target.value)}
-                value={valor}
-                minLength={2}
-              />
-            </div>
+
+            {campo === "uf" && (
+              <div>
+                <select
+                  className={styles.selects}
+                  value={ufSelecionada}
+                  onChange={(e) => setUfSelecionada(e.target.value)}
+                >
+                  <option value="">Selecione um Estado</option>
+                  {estados.map((estado) => (
+                    <option key={estado} value={estado}>
+                      {estado}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {campo === "cidade" && (
+              <div>
+                <input
+                  className={styles.inputSearch}
+                  type="text"
+                  placeholder="Digite o nome da cidade"
+                  onChange={(e) => setValor(e.target.value)}
+                  value={valor}
+                  minLength={2}
+                />
+              </div>
+            )}
+
             <div className={styles.buttonDiv}>
               <button type="submit">Enviar</button>
               <button onClick={clearForm} type="button">
