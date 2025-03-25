@@ -27,13 +27,14 @@ export default function Page() {
 
   // Função para garantir que valores inválidos sejam tratados como 0
   const safeValue = (value: any): number => {
-    return isNaN(value) || value === undefined ? 0 : parseFloat(value);
+    const num = parseFloat(value);
+    return isNaN(num) ? 0 : num;
   };
 
   // Função para calcular os custos totais
   const calculateTotalCosts = (): number => {
-    const brokerCommissionValue = (brokerCommission / 100) * auctionValue;
-    const itbiValue = (itbi / 100) * auctionValue;
+    const brokerCommissionValue = (safeValue(brokerCommission) / 100) * safeValue(auctionValue);
+    const itbiValue = (safeValue(itbi) / 100) * safeValue(auctionValue);
     const total =
       brokerCommissionValue +
       itbiValue +
@@ -50,25 +51,25 @@ export default function Page() {
 
   // Função para calcular o ganho de capital
   const calculateCapitalGains = (): number => {
-    const realEstateCommissionValue = (realEstateCommission / 100) * saleValue;
+    const realEstateCommissionValue = (safeValue(realEstateCommission) / 100) * safeValue(saleValue);
     const capitalGains =
       safeValue(saleValue) -
-      realEstateCommissionValue - // Subtrai a comissão do corretor
+      realEstateCommissionValue -
       totalCosts +
       safeValue(otherCosts) +
       safeValue(condominium) * safeValue(salePeriod) +
       safeValue(iptu) * safeValue(salePeriod) +
       safeValue(lawyerFee);
-    return capitalGains > 0 ? capitalGains : 0; // Retorna 0 se o ganho for negativo
+    return capitalGains > 0 ? capitalGains : 0;
   };
 
   // Função para calcular o lucro líquido
   const calculateNetProfit = (): number => {
-    const realEstateCommissionValue = (realEstateCommission / 100) * saleValue;
+    const realEstateCommissionValue = (safeValue(realEstateCommission) / 100) * safeValue(saleValue);
     const capitalGainsTaxValue =
-      (capitalGainsTax / 100) * calculateCapitalGains();
+      (safeValue(capitalGainsTax) / 100) * calculateCapitalGains();
     const realSaleValue =
-      saleValue - realEstateCommissionValue - capitalGainsTaxValue;
+      safeValue(saleValue) - realEstateCommissionValue - capitalGainsTaxValue;
     const netProfit = realSaleValue - totalCosts;
     return netProfit;
   };
@@ -76,7 +77,7 @@ export default function Page() {
   // Função para calcular o lucro mensal
   const calculateMonthlyProfit = (): number => {
     const netProfit = calculateNetProfit();
-    return salePeriod > 0 ? parseFloat((netProfit / salePeriod).toFixed(2)) : 0;
+    return safeValue(salePeriod) > 0 ? parseFloat((netProfit / safeValue(salePeriod)).toFixed(2)) : 0;
   };
 
   // Função para formatar valores em moeda
@@ -118,12 +119,11 @@ export default function Page() {
     salePeriod,
     iptu,
     condominium,
-    realEstateCommission,
   ]);
 
   // Atualiza o valor da comissão do corretor
   useEffect(() => {
-    setRealEstateCommissionValue((realEstateCommission / 100) * saleValue);
+    setRealEstateCommissionValue((safeValue(realEstateCommission) / 100) * safeValue(saleValue));
   }, [realEstateCommission, saleValue]);
 
   return (
@@ -145,8 +145,9 @@ export default function Page() {
               <td>
                 <input
                   type="number"
+                  placeholder="R$ 0,00"
                   className={styles.input}
-                  value={auctionValue}
+                  value={auctionValue || ""}
                   onChange={(e) => setAuctionValue(safeValue(e.target.value))}
                 />
               </td>
@@ -156,8 +157,9 @@ export default function Page() {
               <td>
                 <input
                   type="number"
+                  placeholder="R$ 0,00"
                   className={styles.input}
-                  value={saleValue}
+                  value={saleValue || ""}
                   onChange={(e) => setSaleValue(safeValue(e.target.value))}
                 />
               </td>
@@ -179,7 +181,7 @@ export default function Page() {
               <td>Comissão do Leiloeiro</td>
               <td>
                 <input
-                  type="number"
+                  type="number"                  
                   className={styles.inputPercent}
                   value={brokerCommission}
                   onChange={(e) =>
@@ -188,7 +190,7 @@ export default function Page() {
                 />{" "}
                 %
               </td>
-              <td>{formatCurrency((brokerCommission / 100) * auctionValue)}</td>
+              <td>{formatCurrency((safeValue(brokerCommission) / 100) * safeValue(auctionValue))}</td>
             </tr>
             <tr>
               <td>ITBI</td>
@@ -201,15 +203,16 @@ export default function Page() {
                 />{" "}
                 %
               </td>
-              <td>{formatCurrency((itbi / 100) * auctionValue)}</td>
+              <td>{formatCurrency((safeValue(itbi) / 100) * safeValue(auctionValue))}</td>
             </tr>
             <tr>
               <td>Registro</td>
               <td>
                 <input
                   type="number"
+                  placeholder="R$ 0,00"
                   className={styles.input}
-                  value={registration}
+                  value={registration || ""}
                   onChange={(e) => setRegistration(safeValue(e.target.value))}
                 />
               </td>
@@ -219,8 +222,9 @@ export default function Page() {
               <td>
                 <input
                   type="number"
+                  placeholder="R$ 0,00"
                   className={styles.input}
-                  value={lawyerFee}
+                  value={lawyerFee || ""}
                   onChange={(e) => setLawyerFee(safeValue(e.target.value))}
                 />
               </td>
@@ -242,8 +246,9 @@ export default function Page() {
               <td>
                 <input
                   type="number"
+                  placeholder="R$ 0,00"
                   className={styles.input}
-                  value={reform}
+                  value={reform || ""}
                   onChange={(e) => setReform(safeValue(e.target.value))}
                 />
               </td>
@@ -253,8 +258,9 @@ export default function Page() {
               <td>
                 <input
                   type="number"
+                  placeholder="R$ 0,00"
                   className={styles.input}
-                  value={otherCosts}
+                  value={otherCosts || ""}
                   onChange={(e) => setOtherCosts(safeValue(e.target.value))}
                 />
               </td>
@@ -276,8 +282,9 @@ export default function Page() {
               <td>
                 <input
                   type="number"
+                  placeholder="0 meses"
                   className={styles.input}
-                  value={salePeriod}
+                  value={salePeriod || ""}
                   onChange={(e) => setSalePeriod(safeValue(e.target.value))}
                 />
               </td>
@@ -287,8 +294,9 @@ export default function Page() {
               <td>
                 <input
                   type="number"
+                  placeholder="R$ 0,00"
                   className={styles.input}
-                  value={iptu}
+                  value={iptu || ""}
                   onChange={(e) => setIptu(safeValue(e.target.value))}
                 />
               </td>
@@ -298,8 +306,9 @@ export default function Page() {
               <td>
                 <input
                   type="number"
+                  placeholder="R$ 0,00"
                   className={styles.input}
-                  value={condominium}
+                  value={condominium || ""}
                   onChange={(e) => setCondominium(safeValue(e.target.value))}
                 />
               </td>
@@ -352,7 +361,7 @@ export default function Page() {
               </td>
               <td>
                 {formatCurrency(
-                  (capitalGainsTax / 100) * calculateCapitalGains()
+                  (safeValue(capitalGainsTax) / 100) * calculateCapitalGains()
                 )}
               </td>
             </tr>
@@ -363,9 +372,9 @@ export default function Page() {
         <p className={styles.totalCosts}>
           Valor Real de Venda:{" "}
           {formatCurrency(
-            saleValue -
+            safeValue(saleValue) -
               realEstateCommissionValue -
-              (capitalGainsTax / 100) * calculateCapitalGains()
+              (safeValue(capitalGainsTax) / 100) * calculateCapitalGains()
           )}
         </p>
 

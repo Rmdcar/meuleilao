@@ -57,6 +57,9 @@ export default function RootLayout({
             <Link href="/pesquisa" onClick={closeMenu}>
               Pesquisa de imóveis
             </Link>
+            <Link href="/registro" onClick={closeMenu}>
+              Valor Registro
+            </Link>
             <Link href="/sobre" onClick={closeMenu}>
               Sobre
             </Link>
